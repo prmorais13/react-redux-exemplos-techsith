@@ -24,11 +24,28 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div>
-          Idade: <span>{this.props.idade}</span>
+        <div className="header">
+          <div className="age">
+            Sua Idade: <span>{this.props.idade}</span>
+          </div>
+          <button className="ageUp" onClick={this.props.onAumentar}>
+            Aumentar
+          </button>
+          <button className="ageDown" onClick={this.props.onDiminuir}>
+            Diminuir
+          </button>
+          <hr />
+          <div>Histórico</div>
+          <div>
+            <ul>
+              {this.props.historico.map(el => (
+                <li key={el.id} className="historicoItem">
+                  {el.idade}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <button onClick={this.props.onAumentar}>Aumentar</button>
-        <button onClick={this.props.onAumentar}>Diminuir</button>
       </div>
     );
   }
@@ -36,14 +53,16 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    idade: state.idade
+    id: state.id,
+    idade: state.idade,
+    historico: state.historico
   };
 };
 
 const mapDispachToProps = dispach => {
   return {
-    onAumentar: () => dispach({ type: 'IDADE_AUMENTAR' }),
-    onDiminuir: () => dispach({ type: 'IDADE_DIMINUIR' })
+    onAumentar: () => dispach({ type: 'IDADE_AUMENTAR', value: 10 }),
+    onDiminuir: () => dispach({ type: 'IDADE_DIMINUIR', value: 5 })
   };
 };
 

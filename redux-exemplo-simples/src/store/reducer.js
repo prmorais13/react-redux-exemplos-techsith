@@ -1,24 +1,36 @@
 const initialState = {
-  idade: 21
+  idade: 20,
+  historico: []
 };
 
 const reducer = (state = initialState, action) => {
-  const newState = { ...state };
-
   switch (action.type) {
     case 'IDADE_AUMENTAR':
-      newState.idade++;
-      break;
+      //newState.idade += action.value;
+      return {
+        ...state,
+        idade: state.idade + action.value,
+        historico: state.historico.concat({
+          id: Math.random(),
+          idade: state.idade + action.value
+        })
+      };
 
     case 'IDADE_DIMINUIR':
-      newState.idade--;
-      break;
+      return {
+        ...state,
+        idade: state.idade - action.value,
+        historico: state.historico.concat({
+          id: Math.random(),
+          idade: state.idade - action.value
+        })
+      };
 
     default:
-      break;
+      return {
+        ...state
+      };
   }
-
-  return newState;
 };
 
 export default reducer;
