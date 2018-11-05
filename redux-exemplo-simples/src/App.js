@@ -1,35 +1,53 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class App extends Component {
-  state = {
-    idade: 21
-  };
+import { connect } from 'react-redux';
 
-  onAumentar = () => {
-    this.setState({
-      ...this.state,
-      idade: ++this.state.idade
-    });
-  };
-  onDiminuir = () => {
-    this.setState({
-      ...this.state,
-      idade: --this.state.idade
-    });
-  };
+class App extends Component {
+  // state = {
+  //   idade: 21
+  // };
+
+  // onAumentar = () => {
+  //   this.setState({
+  //     ...this.state,
+  //     idade: ++this.state.idade
+  //   });
+  // };
+  // onDiminuir = () => {
+  //   this.setState({
+  //     ...this.state,
+  //     idade: --this.state.idade
+  //   });
+  // };
 
   render() {
     return (
       <div className="App">
         <div>
-          Idade: <span>{this.state.idade}</span>
+          Idade: <span>{this.props.idade}</span>
         </div>
-        <button onClick={this.onAumentar}>Aumentar</button>
-        <button onClick={this.onAumentar}>Diminuir</button>
+        <button onClick={this.props.onAumentar}>Aumentar</button>
+        <button onClick={this.props.onAumentar}>Diminuir</button>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    idade: state.idade
+  };
+};
+
+const mapDispachToProps = dispach => {
+  return {
+    onAumentar: () => dispach({ type: 'IDADE_AUMENTAR' }),
+    onDiminuir: () => dispach({ type: 'IDADE_DIMINUIR' })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispachToProps
+)(App);
