@@ -39,7 +39,11 @@ class App extends Component {
           <div>
             <ul>
               {this.props.historico.map(el => (
-                <li key={el.id} className="historicoItem">
+                <li
+                  key={el.id}
+                  className="historicoItem"
+                  onClick={() => this.props.onDelItem(el.id)}
+                >
                   {el.idade}
                 </li>
               ))}
@@ -62,7 +66,8 @@ const mapStateToProps = state => {
 const mapDispachToProps = dispach => {
   return {
     onAumentar: () => dispach({ type: 'IDADE_AUMENTAR', value: 10 }),
-    onDiminuir: () => dispach({ type: 'IDADE_DIMINUIR', value: 5 })
+    onDiminuir: () => dispach({ type: 'IDADE_DIMINUIR', value: 5 }),
+    onDelItem: id => dispach({ type: 'IDADE_EXCLUIR', key: id })
   };
 };
 

@@ -26,6 +26,12 @@ const reducer = (state = initialState, action) => {
         })
       };
 
+    case 'IDADE_EXCLUIR':
+      return {
+        ...state,
+        historico: state.historico.filter(el => el.id !== action.key)
+      };
+
     default:
       return {
         ...state
